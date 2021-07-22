@@ -1,0 +1,60 @@
+version: '3.8'
+
+networks:
+  back:
+    driver: bridge
+  front:
+    external: true
+    name: ${DOCKER_NETWORK_REVERSE_PROXY}
+
+volumes:
+  composer-cache:
+  db-data:
+
+services:
+  php:
+    image: ${DOCKER_IMAGE_PHP}
+    build:
+      context: ./docker/php
+      args:
+        IMAGE: ${DOCKER_BASE_IMAGE_PHP}
+    container_name: ${DOCKER_CONTAINER_BASE_NAME}_php
+    depends_on:
+      - postgres
+    networks:
+      - back
+      - front
+    environment:
+      UID: ${UID}
+      GID: ${GID}
+      UNAME: ${UNAME}
+    volumes:
+      - "composer-cache:/home/${UNAME}/.composer"
+      - ".:/opt/ant-api"
+    labels:
+      traefik.http.routers.http.rule: "Host(`${DOCKER_HOSTNAME}`)"
+      traefik.http.routers.http.middlewares: "redirecthttps"
+      traefik.http.routers.http.entryPoints: "http"
+      traefik.http.routers.https.rule: "Host(`${DOCKER_HOSTNAME}`)"
+      traefik.http.routers.https.entryPoints: "https"
+      traefik.http.routers.https.tls: true
+      traefik.http.middlewares.redirecthttps.redirectscheme.scheme: https
+      traefik.http.middlewares.redirecthttps.redirectscheme.permanent: true
+      traefik.docker.network: "${DOCKER_NETWORK_REVERSE_PROXY}"
+
+  postgres:
+    image: ${DOCKER_IMAGE_POSTGRES}
+    container_name: ${DOCKER_CONTAINER_BASE_NAME}_postgres
+    networks:
+      - back
+    volumes:
+      - db-data:${DOCKER_POSTGRES_DATADIR}
+    environment:
+      POSTGRES_DB: ${DATABASE_NAME}
+      POSTGRES_PASSWORD: ${DATABASE_PASSWORD}
+      POSTGRES_USER: ${DATABASE_USER}
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U postgres -d '${DATABASE_NAME}'"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
