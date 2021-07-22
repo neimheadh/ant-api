@@ -20,3 +20,11 @@ How to develop
 
 The current project use [Git-flow](https://danielkummer.github.io/git-flow-cheatsheet/index.html)
 workflow.
+
+A docker-based development environment is included in this repository. It's
+configured to be used with [Neimheadh's development kit](https://github.com/neimheadh/development-kit).
+After the kit is installed, you can execute the following command:
+
+```shell
+bin/start
+```
