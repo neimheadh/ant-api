@@ -1,0 +1,13 @@
+trikoder_oauth2:
+
+    authorization_server:
+        private_key: '%env(resolve:OAUTH2_PRIVATE_SSL_KEY)%'    # SSL private key
+        private_key_passphrase: null                            # Passphrase of the private key, if any
+
+        encryption_key: '%env(string:OAUTH2_ENCRYPTION_KEY)%'   # (Optional) Change this
+
+    resource_server:
+        public_key: '%env(resolve:OAUTH2_PUBLIC_SSL_KEY)%'      # SSL public key
+
+    persistence:
+        doctrine: null

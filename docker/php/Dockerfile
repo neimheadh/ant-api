@@ -16,7 +16,12 @@ RUN apt-get update && apt-get install -y \
     sudo \
     zip \
     unzip\
+    libpq-dev\
+    openssl \
  && rm -rf /var/lib/apt/lists/*
+
+# Install php extensions
+RUN docker-php-ext-install pdo_pgsql
 
 # Install composer
 RUN php -r "copy('https://getcomposer.org/installer', 'composer-setup.php');" \

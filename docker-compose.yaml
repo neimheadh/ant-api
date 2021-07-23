@@ -28,6 +28,10 @@ services:
       UID: ${UID}
       GID: ${GID}
       UNAME: ${UNAME}
+      OAUTH2_PRIVATE_SSL_KEY: ${OAUTH2_PRIVATE_SSL_KEY}
+      OAUTH2_PUBLIC_SSL_KEY: ${OAUTH2_PUBLIC_SSL_KEY}
+      OAUTH2_CLIENT_ID: ${OAUTH2_CLIENT_ID}
+      OAUTH2_CLIENT_SECRET: ${OAUTH2_CLIENT_SECRET}
     volumes:
       - "composer-cache:/home/${UNAME}/.composer"
       - ".:/opt/ant-api"

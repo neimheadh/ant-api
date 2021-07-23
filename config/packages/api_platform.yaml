@@ -5,3 +5,10 @@ api_platform:
         json: ['application/merge-patch+json']
     swagger:
         versions: [3]
+
+    oauth:
+        enabled: true
+        clientId: '%env(string:OAUTH2_CLIENT_ID)%'
+        clientSecret: '%env(string:OAUTH2_CLIENT_SECRET)%'
+        tokenUrl: '/oauth/v2/token'
+        authorizationUrl: '/oauth/v2/authorize'
