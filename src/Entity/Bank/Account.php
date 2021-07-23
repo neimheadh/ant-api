@@ -3,6 +3,7 @@
 namespace App\Entity\Bank;
 
 use ApiPlatform\Core\Annotation\ApiResource;
+use App\Entity\User\User;
 use App\Model\General\LabeledEntityInterface;
 use App\Model\General\LabeledEntityTrait;
 use App\Model\User\OwnedEntityInterface;
@@ -23,7 +24,17 @@ class Account implements LabeledEntityInterface, OwnedEntityInterface
     use LabeledEntityTrait, OwnedEntityTrait;
 
     /**
-     * Accout bank.
+     * Account owner.
+     *
+     * @ORM\ManyToOne(targetEntity=User::class)
+     * @ORM\JoinColumn(name="owner_id", nullable=false)
+     *
+     * @var User
+     */
+    private $owner;
+
+    /**
+     * Account bank.
      *
      * @ORM\ManyToOne(targetEntity=Bank::class, inversedBy="accounts")
      * @ORM\JoinColumn(nullable=false)

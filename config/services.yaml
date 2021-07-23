@@ -21,5 +21,15 @@ services:
             - '../src/Kernel.php'
             - '../src/Tests/'
 
+    App\EventListener\Request\:
+        resource: '../src/EventListener/Request'
+        tags:
+            - { name: kernel.event_listener, event: kernel.request }
     # add more service definitions when explicit configuration is needed
     # please note that last definitions always *replace* previous ones
+
+    # Event listeners
+    App\EventListener\Request\OwnedEntityFilterConfigurator:
+        autoconfigure: false
+        tags:
+            - { name: kernel.event_listener, event: kernel.request, priority: 5 }

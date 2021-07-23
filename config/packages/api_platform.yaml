@@ -12,3 +12,9 @@ api_platform:
         clientSecret: '%env(string:OAUTH2_CLIENT_SECRET)%'
         tokenUrl: '/oauth/v2/token'
         authorizationUrl: '/oauth/v2/authorize'
+
+doctrine:
+    orm:
+        filters:
+            owned_entity:
+                class: App\Filter\User\OwnedEntityFilter

@@ -26,4 +26,5 @@ security:
             stateless: true
             oauth2: true
 
-    access_control: ~
+    access_control:
+        - { path: ^/oauth/v2/authorize, roles: IS_AUTHENTICATED_REMEMBERED }
