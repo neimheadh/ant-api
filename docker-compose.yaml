@@ -1,4 +1,4 @@
-version: '3.8'
+version: '3.5'
 
 networks:
   back:
@@ -33,10 +33,10 @@ services:
       - ".:/opt/ant-api"
     labels:
       traefik.http.routers.http.rule: "Host(`${DOCKER_HOSTNAME}`)"
-      traefik.http.routers.http.middlewares: "redirecthttps"
-      traefik.http.routers.http.entryPoints: "http"
+      traefik.http.routers.http.middlewares: "${TRAEFIK_MIDDLEWARE_REDIRECT}"
+      traefik.http.routers.http.entryPoints: "${TRAEFIK_ENTRYPOINT_HTTP}"
       traefik.http.routers.https.rule: "Host(`${DOCKER_HOSTNAME}`)"
-      traefik.http.routers.https.entryPoints: "https"
+      traefik.http.routers.https.entryPoints: "${TRAEFIK_ENTRYPOINT_HTTPS}"
       traefik.http.routers.https.tls: true
       traefik.http.middlewares.redirecthttps.redirectscheme.scheme: https
       traefik.http.middlewares.redirecthttps.redirectscheme.permanent: true

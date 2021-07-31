@@ -26,5 +26,5 @@ configured to be used with [Neimheadh's development kit](https://github.com/neim
 After the kit is installed, you can execute the following command:
 
 ```shell
-bin/start
+bin/setup
 ```
