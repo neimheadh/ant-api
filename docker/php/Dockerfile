@@ -7,8 +7,8 @@ ENV UNAME="developer"
 ENV UID=1000
 ENV GID=1000
 
-# Expose http port
-EXPOSE 80
+# Expose server port
+EXPOSE 8000
 
 # Install meta-dependencies from APT
 RUN apt-get update && apt-get install -y \
@@ -36,4 +36,4 @@ RUN mkdir -p "${PROJECT_DIR}"
 WORKDIR ${PROJECT_DIR}
 COPY docker-entrypoint.sh /usr/bin/
 ENTRYPOINT ["/usr/bin/docker-entrypoint.sh"]
-CMD ["symfony", "server:start", "--no-tls", "--allow-http", "--port=80"]
+CMD ["symfony", "server:start", "--no-tls", "--allow-http", "--port=8000"]
